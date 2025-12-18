@@ -3,7 +3,6 @@ Gitflows: Github, Gitlab
 
 Lab 2 : Workflows and Branching Strategies
 
-
 General Objectives
 Put professional Git workflows (Git Flow, GitHub Flow, GitLab Flow, Trunk-Based Development) into practice in real-world conditions. 
 
@@ -18,7 +17,7 @@ Choose a workflow adapted to a professional context
 
 General context of the lab 
 
-You work in a DevOps team on a project named UCC-WeatherApp, an internal application used to check the weather. 
+You work in a DevOps team on a project named UCC-WeatherApp, an internal application used to check the weather.
 Your mission: Simulate a full development cycle by applying different Git workflows.
 
 Exercice 1: Branch management (essential basics)
