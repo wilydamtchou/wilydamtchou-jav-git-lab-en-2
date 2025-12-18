@@ -1,211 +1,212 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# TP1 UCC 131-1 : Fondamentaux de Git
-# Script corrigé et commenté
+# TP1 UCC 131-1: Fundamentals of Git
+# Corrected and commented script
 ###############################################################################
 
 ###############################################################################
-# PRÉPARATION DU TP
+# PRACTICAL WORK PREPARATION
 ###############################################################################
 
-# On supprime un éventuel ancien répertoire pour repartir d'un contexte propre.
+# Remove any previous directory to start from a clean environment.
 rm -rf tp-session1-git
 
 ###############################################################################
-# EXERCICE 1 : Initialisation d’un dépôt Git
+# EXERCISE 1: Initializing a Git Repository
 ###############################################################################
 echo "===================="
-echo "EXERCICE 1 : Initialisation du dépôt"
+echo "EXERCISE 1: Repository Initialization"
 echo "===================="
 
-# Création du dossier du TP
+# Create the working directory for the lab
 mkdir tp-session1-git
 cd tp-session1-git
 
-# Initialisation du dépôt Git
+# Initialize the Git repository
 git init
 
-# Vérification de l’état du dépôt (aucun commit, aucun fichier suivi)
+# Check the repository status (no commits, no tracked files)
 git status
 
 
 ###############################################################################
-# EXERCICE 2 : Zones de Git (Working Directory, Staging, Repository)
+# EXERCISE 2: Git Areas (Working Directory, Staging Area, Repository)
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 2 : WD / STAGING / REPOSITORY"
+echo "EXERCISE 2: WD / STAGING / REPOSITORY"
 echo "===================="
 
-# 1. Création d’un fichier dans le Working Directory
-#    - WD : fichier présent sur le disque, non encore suivi par Git.
-echo "Git est un système de gestion de versions distribué." > notes.txt
+# 1. Create a file in the Working Directory
+#    - WD: file exists on disk but is not yet tracked by Git.
+echo "Git is a distributed version control system." > notes.txt
 
-# 2. git status : on voit 'notes.txt' comme fichier non suivi (untracked)
+# 2. git status: 'notes.txt' appears as an untracked file
 git status
 
-# 3. git add : passage de notes.txt dans la Staging Area (index)
+# 3. git add: move notes.txt into the Staging Area (index)
 git add notes.txt
 
-# 4. git status : on voit 'notes.txt' dans la zone de staging (prêt à être commité)
+# 4. git status: 'notes.txt' is now staged (ready to be committed)
 git status
 
-# 5. git commit : enregistrement dans le Repository
-#    - Création d’un snapshot (commit) de notes.txt
-git commit -m "Ajout du fichier notes.txt : définition de Git"
+# 5. git commit: record the file in the Repository
+#    - Creates a snapshot (commit) of notes.txt
+git commit -m "Added notes.txt: definition of Git"
 
 
 ###############################################################################
-# EXERCICE 3 : Modifications, diffs et commits
+# EXERCISE 3: Modifications, diffs, and commits
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 3 : Modifications, diffs et commits"
+echo "EXERCISE 3: Modifications, diffs, and commits"
 echo "===================="
 
-# 1. Modification du fichier : ajout d’une nouvelle ligne (Working Directory modifié)
-echo "Il utilise un modèle basé sur des snapshots." >> notes.txt
+# 1. Modify the file: add a new line (Working Directory modified)
+echo "It uses a snapshot-based model." >> notes.txt
 
-# 2. git diff : comparer Working Directory (modifié) et Staging Area (ancienne version)
+# 2. git diff: compare Working Directory (modified) and Staging Area (previous version)
 git diff
 
-# 3. git add : on ajoute les modifications dans la Staging Area
+# 3. git add: stage the modifications
 git add notes.txt
 
-# 4. git diff --staged : comparer Staging Area et HEAD (dernier commit)
+# 4. git diff --staged: compare Staging Area and HEAD (last commit)
 git diff --staged
 
-# 5. git commit : création d’un nouveau snapshot intégrant la nouvelle ligne
-git commit -m "Ajout d'une explication sur le modèle snapshot"
+# 5. git commit: create a new snapshot including the new line
+git commit -m "Added explanation about the snapshot model"
 
 
 ###############################################################################
-# EXERCICE 4 : Historique et navigation
+# EXERCISE 4: History and navigation
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 4 : Historique Git"
+echo "EXERCISE 4: Git History"
 echo "===================="
 
-# 1. git log : historique détaillé (hash, auteur, date, message)
+# 1. git log: detailed history (hash, author, date, message)
 git log
 
-# 2. git log --oneline : historique condensé en une ligne par commit
+# 2. git log --oneline: condensed history (one line per commit)
 git log --oneline
 
-# 3. git log --oneline --graph --decorate --all :
-#    - --graph : représentation en ASCII du graphe des commits
-#    - --decorate : afficher les noms des branches/tags
-#    - --all : afficher toutes les références
+# 3. git log --oneline --graph --decorate --all:
+#    - --graph: ASCII representation of the commit graph
+#    - --decorate: show branch/tag names
+#    - --all: show all references
 git log --oneline --graph --decorate --all
 
 
 ###############################################################################
-# EXERCICE 5 : Restauration de fichiers (git restore vs git checkout)
+# EXERCISE 5: File restoration (git restore vs git checkout)
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 5 : Restauration de fichiers"
+echo "EXERCISE 5: File Restoration"
 echo "===================="
 
-# 1. On simule une mauvaise manipulation dans le Working Directory
-#    Exemple : suppression de la première ligne (comme si on l’avait fait dans un éditeur)
-#    Ici, on remplace le contenu par seulement la deuxième phrase.
-echo "Il utilise un modèle basé sur des snapshots." > notes.txt
+# 1. Simulate a bad manipulation in the Working Directory
+#    Example: deleting the first line (as if done in an editor)
+#    Here, we replace the content with only the second sentence.
+echo "It uses a snapshot-based model." > notes.txt
 
-# À ce stade, le WD ne correspond plus au dernier commit.
+# At this point, the WD no longer matches the last commit.
 git status
 
-# 2. git restore : restaurer le fichier dans l’état du dernier commit (HEAD)
+# 2. git restore: restore the file to the state of the last commit (HEAD)
 git restore notes.txt
 
-# 3. Après restore, le fichier notes.txt revient à son état validé dans le Repository.
+# 3. After restore, notes.txt returns to its committed state.
 git status
 
-# COMMENTAIRE PÉDAGOGIQUE :
-# - git restore : commande moderne, explicite, pour restaurer des fichiers.
-# - git checkout : sert principalement à changer de branche; son usage pour restaurer
-#   des fichiers est ancien et moins clair. On préfère git restore pour la pédagogie.
+# PEDAGOGICAL COMMENT:
+# - git restore: modern, explicit command for restoring files.
+# - git checkout: mainly used to switch branches; its use for restoring files
+#   is older and less clear. For teaching purposes, git restore is preferred.
 
 
 ###############################################################################
-# EXERCICE 6 : Suppression et renommage (git rm, git mv)
+# EXERCISE 6: Deleting and renaming files (git rm, git mv)
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 6 : Suppression et renommage"
+echo "EXERCISE 6: Deletion and Renaming"
 echo "===================="
 
-# 1. Création d’un fichier 'draft.txt'
-echo "brouillon" > draft.txt
+# 1. Create a file 'draft.txt'
+echo "draft" > draft.txt
 
-# 2. On l’ajoute au suivi Git
+# 2. Add it to Git tracking
 git add draft.txt
-git commit -m "Ajout du fichier draft.txt"
+git commit -m "Added draft.txt"
 
-# 3. Suppression avec git rm
-#    - Supprime le fichier du WD
-#    - Enregistre la suppression dans l’index (Staging Area)
+# 3. Delete with git rm
+#    - Removes the file from the WD
+#    - Stages the deletion in the index (Staging Area)
 git rm draft.txt
 
-# 4. On commit cette suppression
-git commit -m "Suppression du fichier draft.txt"
+# 4. Commit the deletion
+git commit -m "Deleted draft.txt"
 
-# COMMENTAIRE :
-# - git rm : supprime le fichier ET l’enregistre comme suppression pour le prochain commit.
-# - rm seul : supprime le fichier physiquement, mais Git le verra comme « deleted but not staged ».
+# COMMENT:
+# - git rm: deletes the file AND stages the deletion for the next commit.
+# - rm alone: deletes the file physically, but Git sees it as “deleted but not staged”.
 
-# 5. Renommage de notes.txt en git-notes.txt avec git mv
-#    - git mv fait l’équivalent d’un mv + git add + git rm adapté
+# 5. Rename notes.txt to git-notes.txt using git mv
+#    - git mv is equivalent to mv + git add + git rm
 git mv notes.txt git-notes.txt
 
-# 6. Commit du renommage
-git commit -m "Renommage de notes.txt en git-notes.txt"
+# 6. Commit the rename
+git commit -m "Renamed notes.txt to git-notes.txt"
 
 
 ###############################################################################
-# EXERCICE 7 : Comprendre les snapshots Git (git ls-tree)
+# EXERCISE 7: Understanding Git snapshots (git ls-tree)
 ###############################################################################
 echo
 echo "===================="
-echo "EXERCICE 7 : Snapshots Git"
+echo "EXERCICE 7: Git Snapshots"
 echo "===================="
 
-# 1. Visualiser l’historique condensé
+# 1. Display condensed history
 git log --oneline
 
-# On récupère le dernier commit (HEAD) pour l’inspecter.
-# Note : on pourrait aussi utiliser un hash précis trouvé dans le log.
+# Retrieve the last commit (HEAD) for inspection.
+# Note: we could also use a specific hash from the log.
 LAST_COMMIT_HASH=$(git rev-parse HEAD)
 
-echo "Inspection du snapshot du commit : $LAST_COMMIT_HASH"
+echo "Inspecting snapshot of commit: $LAST_COMMIT_HASH"
 
-# 2. git ls-tree -r <hash> : lister le contenu (arbre) du snapshot
-#    - -r : récursif
+# 2. git ls-tree -r <hash>: list the contents (tree) of the snapshot
+#    - -r: recursive
 git ls-tree -r "$LAST_COMMIT_HASH"
 
-# COMMENTAIRE :
-# - Un snapshot Git est une photo complète de l’état du projet (fichiers + arborescence).
-# - Git stocke des objets : blobs (contenu des fichiers) et trees (dossiers).
-# - Ce modèle snapshot rend Git rapide, fiable et facilite les merges.
+# COMMENT:
+# - A Git snapshot is a complete picture of the project state (files + directory tree).
+# - Git stores objects: blobs (file contents) and trees (directories).
+# - This snapshot model makes Git fast, reliable, and merge-friendly.
+
 
 ###############################################################################
-# EXERCICE 8 : Débogage avec git bisect (version simple et pédagogique)
+# EXERCISE 8: Debugging with git bisect (simple educational version)
 ###############################################################################
 echo
 echo "=============================="
-echo "EXERCICE 8 : Débogage avec git bisect"
+echo "EXERCISE 8: Debugging with git bisect"
 echo "=============================="
 echo
-echo "Objectif : Identifier automatiquement le commit qui introduit un bug."
-echo "Git bisect utilise une recherche binaire pour trouver le premier commit fautif."
+echo "Objective: Automatically identify the commit that introduced a bug."
+echo "Git bisect uses binary search to find the first faulty commit."
 echo
 
-echo "Étape 1 : Création de plusieurs versions successives..."
+echo "Step 1: Creating several successive versions..."
 echo
 
-# Version 1 (bonne)
+# Version 1 (good)
 echo "version 1" > version.txt
 git add version.txt
 git commit -m "Version 1"
@@ -218,7 +219,7 @@ git commit -am "Version 2"
 echo "version 3" > version.txt
 git commit -am "Version 3"
 
-# Version 4 (BUG introduit volontairement)
+# Version 4 (BUG introduced intentionally)
 echo "version 4 - BUG" > version.txt
 git commit -am "Version 4"
 
@@ -231,51 +232,51 @@ echo "version 6" > version.txt
 git commit -am "Version 6"
 
 echo
-echo "Étape 2 : Préparation du bisect"
+echo "Step 2: Preparing the bisect"
 echo "--------------------------------"
-echo "HEAD contient le bug (version 6)."
-echo "La version 1 était bonne."
+echo "HEAD contains the bug (version 6)."
+echo "Version 1 was good."
 echo
 
 GOOD_COMMIT=$(git log --grep="Version 1" --format="%H" | head -n 1)
 
-echo "Commit GOOD (Version 1) : $GOOD_COMMIT"
-echo "Commit BAD (HEAD) : $(git rev-parse HEAD)"
+echo "GOOD commit (Version 1): $GOOD_COMMIT"
+echo "BAD commit (HEAD): $(git rev-parse HEAD)"
 echo
 
-echo "Étape 3 : Démarrage du bisect"
+echo "Step 3: Starting the bisect"
 echo "--------------------------------"
 git bisect start
 git bisect bad
 git bisect good "$GOOD_COMMIT"
 
 echo
-echo "Git a maintenant choisi un commit intermédiaire."
-echo "Ouvrez le fichier version.txt pour vérifier s'il contient le BUG."
+echo "Git has now selected an intermediate commit."
+echo "Open version.txt to check whether it contains the BUG."
 echo
-echo "Si le fichier contient 'BUG' :"
+echo "If the file contains 'BUG':"
 echo "    git bisect bad"
 echo
-echo "Si le fichier NE contient PAS 'BUG' :"
+echo "If the file does NOT contain 'BUG':"
 echo "    git bisect good"
 echo
-echo "Répétez jusqu'à ce que Git affiche :"
+echo "Repeat until Git displays:"
 echo "    <hash> is the first bad commit"
 echo
 
-echo "Étape 4 : Fin du bisect"
+echo "Step 4: Ending the bisect"
 echo "--------------------------------"
 git bisect reset
-echo "Retour à l'état normal du dépôt."
+echo "Repository returned to normal state."
 echo
 
-echo "Exercice 8 terminé."
+echo "Exercise 8 completed."
 echo "=============================="
 
 ###############################################################################
-# FIN DU TP
+# END OF PRACTICAL WORK
 ###############################################################################
 echo
 echo "===================="
-echo "TP1 terminé (script corrigé exécuté avec succès)."
+echo "TP1 completed (corrected script executed successfully)."
 echo "===================="
